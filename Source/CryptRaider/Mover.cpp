@@ -29,6 +29,8 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	UE_LOG(LogTemp, Display, TEXT("Mover report duty!"));
+	AActor* Owner = GetOwner();
+
+	UE_LOG(LogTemp, Display, TEXT("Actor Addres is %u"), Owner);
 }
 
