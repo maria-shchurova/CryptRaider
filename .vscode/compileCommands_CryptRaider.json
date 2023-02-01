@@ -1,0 +1,27 @@
+[
+	{
+		"file": "C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\Source\\CryptRaider\\CryptRaider.Build.cs",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\.vscode\\compileCommands_CryptRaider\\CryptRaider.211.rsp",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\Source\\CryptRaider\\CryptRaider.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\.vscode\\compileCommands_CryptRaider\\CryptRaider.211.rsp",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\Source\\CryptRaider\\CryptRaider.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\.vscode\\compileCommands_CryptRaider\\CryptRaider.211.rsp",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\Source\\CryptRaider\\Mover.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\.vscode\\compileCommands_CryptRaider\\CryptRaider.211.rsp",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\Source\\CryptRaider\\Mover.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @C:\\Users\\Firewalk\\Repositories\\UE-learning-1\\CryptRaider\\.vscode\\compileCommands_CryptRaider\\CryptRaider.211.rsp",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	}
+]
