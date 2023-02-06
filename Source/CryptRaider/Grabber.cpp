@@ -4,7 +4,6 @@
 #include "Grabber.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
 // Sets default values for this component's properties
 UGrabber::UGrabber()
 {
@@ -20,16 +19,6 @@ UGrabber::UGrabber()
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UPhysicsHandleComponent* PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if(PhysicsHandle != nullptr)
-	{
-		UE_LOG(LogTemp, Display, TEXT("PhysicsHandle detected %s"), *PhysicsHandle->GetName());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Display, TEXT("There is no PhysicsHandle Component on the %s"), *GetOwner()->GetActorNameOrLabel());
-	}
 }
 
 
@@ -37,6 +26,9 @@ void UGrabber::BeginPlay()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	FVector TargetLocation = GetComponentLocation() + GetForwardVector() * HoldDistance;
+	GetPhysicsHandleComponent()->SetTargetLocationAndRotation(TargetLocation, GetComponentRotation());
 }
 
 void UGrabber::Grab()
@@ -57,14 +49,30 @@ void UGrabber::Grab()
 
 	if(HasHit)
 	{
-		FString HitActorName = HitResult.GetActor()->GetActorNameOrLabel();
-		UE_LOG(LogTemp, Display, TEXT("Hit %s"), *HitActorName);
+		HitResult.GetComponent()->WakeRigidBody();
+		GetPhysicsHandleComponent()->GrabComponentAtLocationWithRotation(
+			HitResult.GetComponent(),
+			NAME_None,
+			HitResult.ImpactPoint,
+			GetComponentRotation()
+		);
 	}
 }
 
 void UGrabber::Release()
 {
 	UE_LOG(LogTemp, Display, TEXT("Released"));
+}
+
+UPhysicsHandleComponent* UGrabber::GetPhysicsHandleComponent()
+{
+	UPhysicsHandleComponent* PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if(PhysicsHandle == nullptr)
+	{
+		UE_LOG(LogTemp, Display, TEXT("PhysicsHandleComponent not found"));
+	}
+
+	return PhysicsHandle;
 }
 
 
