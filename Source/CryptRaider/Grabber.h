@@ -42,5 +42,5 @@ private:
 	UPROPERTY(EditAnywhere)
 	float HoldDistance = 200;
 
-	UPhysicsHandleComponent* GetPhysicsHandleComponent();
+	UPhysicsHandleComponent* GetPhysicsHandleComponent() const;
 };

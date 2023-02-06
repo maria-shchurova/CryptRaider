@@ -27,12 +27,26 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	FVector TargetLocation = GetComponentLocation() + GetForwardVector() * HoldDistance;
-	GetPhysicsHandleComponent()->SetTargetLocationAndRotation(TargetLocation, GetComponentRotation());
+	UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandleComponent();
+	if(PhysicsHandle == nullptr)
+	{
+		return;
+	}
+	if(PhysicsHandle->GetGrabbedComponent() != nullptr)
+	{
+		FVector TargetLocation = GetComponentLocation() + GetForwardVector() * HoldDistance;
+		PhysicsHandle->SetTargetLocationAndRotation(TargetLocation, GetComponentRotation());
+	}
 }
 
 void UGrabber::Grab()
 {
+	UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandleComponent();
+	if(PhysicsHandle == nullptr)
+	{
+		return;
+	}
+
 	FVector Start = GetComponentLocation();
 	FVector End = Start + GetForwardVector() * MaxGrabDistance;
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
@@ -49,9 +63,11 @@ void UGrabber::Grab()
 
 	if(HasHit)
 	{
+		UPrimitiveComponent* HitComponent = HitResult.GetComponent();
+		HitComponent->WakeAllRigidBodies();
 		HitResult.GetComponent()->WakeRigidBody();
 		GetPhysicsHandleComponent()->GrabComponentAtLocationWithRotation(
-			HitResult.GetComponent(),
+			HitComponent,
 			NAME_None,
 			HitResult.ImpactPoint,
 			GetComponentRotation()
@@ -61,10 +77,20 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
-	UE_LOG(LogTemp, Display, TEXT("Released"));
+	UPhysicsHandleComponent* PhysicsHandle = GetPhysicsHandleComponent();
+	if(PhysicsHandle == nullptr)
+	{
+		return;
+	}
+
+	if(PhysicsHandle->GetGrabbedComponent() != nullptr)
+	{
+		PhysicsHandle->GetGrabbedComponent()->WakeAllRigidBodies();
+		PhysicsHandle->ReleaseComponent();
+	}
 }
 
-UPhysicsHandleComponent* UGrabber::GetPhysicsHandleComponent()
+UPhysicsHandleComponent* UGrabber::GetPhysicsHandleComponent() const
 {
 	UPhysicsHandleComponent* PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 	if(PhysicsHandle == nullptr)
