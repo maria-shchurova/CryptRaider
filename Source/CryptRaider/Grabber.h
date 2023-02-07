@@ -43,4 +43,6 @@ private:
 	float HoldDistance = 200;
 
 	UPhysicsHandleComponent* GetPhysicsHandleComponent() const;
+
+	bool GetGrabbableInReach(FHitResult& OutHitResult) const;
 };
