@@ -20,7 +20,7 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
     AActor* Actor = GetAcceptableActor();
     if(Actor == nullptr)
     {
-        if(Mover != nullptr)
+        if(Mover)
         {
             Mover->SetShouldMove(false);
         }
@@ -30,7 +30,7 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
         if(Mover != nullptr)
         {
             UPrimitiveComponent* Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent()); 
-            if(Component != nullptr)
+            if(Component)
             {
                 Component->SetSimulatePhysics(false);
             }
@@ -52,7 +52,7 @@ AActor* UTiggerArea::GetAcceptableActor() const
 
     for(AActor* Actor : Actors) //like: foreach AActor Actir in Actors
     {
-        if(Actor->ActorHasTag(ActorTag))
+        if(Actor->ActorHasTag(ActorTag) && !Actor->ActorHasTag("Grabbed"))
         {
             return Actor;
         }
