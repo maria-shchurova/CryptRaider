@@ -20,9 +20,12 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
     TArray<AActor*> Actors;
     GetOverlappingActors(Actors);
 
-    for (int32 i = 0; i < Actors.Num(); i++)
+    for(AActor* Actor : Actors) //like: foreach AActor Actir in Actors
     {
-        UE_LOG(LogTemp, Display, TEXT("Fisr Overlapped Actor is %s"), *Actors[i]->GetActorNameOrLabel());
+        if(Actor->ActorHasTag(ActorTag))
+        {
+            UE_LOG(LogTemp, Display, TEXT("Ulocking..."));
+        }
     }
     
 }
