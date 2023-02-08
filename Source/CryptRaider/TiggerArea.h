@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
+#include "Mover.h"
 #include "TiggerArea.generated.h"
 
 /**
@@ -17,12 +18,20 @@ class CRYPTRAIDER_API UTiggerArea : public UBoxComponent
 protected:
 
 	virtual void BeginPlay() override;
-
+	
 public:	
 	UTiggerArea();
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetMover(UMover* Mover);
+
+private:
 	UPROPERTY(EditAnywhere)
 	FName ActorTag;
+
+	AActor* GetAcceptableActor() const;
+
+	UMover* Mover;
 };

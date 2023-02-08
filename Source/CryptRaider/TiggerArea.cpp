@@ -17,6 +17,29 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+    if(GetAcceptableActor() == nullptr)
+    {
+        if(Mover != nullptr)
+        {
+            Mover->SetShouldMove(false);
+        }
+    }
+    else
+    {
+        if(Mover != nullptr)
+        {
+            Mover->SetShouldMove(true);            
+        }
+    }
+}
+
+void UTiggerArea::SetMover(UMover* NewMover)
+{
+    Mover = NewMover;
+}
+
+AActor* UTiggerArea::GetAcceptableActor() const
+{
     TArray<AActor*> Actors;
     GetOverlappingActors(Actors);
 
@@ -24,9 +47,10 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
     {
         if(Actor->ActorHasTag(ActorTag))
         {
-            UE_LOG(LogTemp, Display, TEXT("Ulocking..."));
+            return Actor;
         }
     }
-    
+
+    return nullptr;
 }
 
