@@ -17,7 +17,8 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-    if(GetAcceptableActor() == nullptr)
+    AActor* Actor = GetAcceptableActor();
+    if(Actor == nullptr)
     {
         if(Mover != nullptr)
         {
@@ -28,6 +29,12 @@ void UTiggerArea::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
     {
         if(Mover != nullptr)
         {
+            UPrimitiveComponent* Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent()); 
+            if(Component != nullptr)
+            {
+                Component->SetSimulatePhysics(false);
+            }
+            Component->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
             Mover->SetShouldMove(true);            
         }
     }
